@@ -9,8 +9,8 @@ import java.util.Arrays;
  */
 public class ArrayStorage {
     private final static int CAPACITY = 10000;
-    int size;
-    Resume[] storage = new Resume[CAPACITY];
+    private int size;
+    protected final Resume[] storage = new Resume[CAPACITY];
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -18,9 +18,10 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
+        int index = getIndex(r.getUuid());
         if (size == CAPACITY) {
             System.out.println("Список резюме переполнен");
-        } else if (isExist(r.getUuid())) {
+        } else if (isExist(index)) {
             System.out.println("Резюме " + r.getUuid() + " уже есть в списке");
         } else {
             storage[size++] = r;
@@ -28,35 +29,29 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        if (!isExist(uuid)) {
+        int index = getIndex(uuid);
+        if (!isExist(index)) {
             System.out.println("Резюме " + uuid + " не найдено");
             return null;
-        }
-        int index = getIndex(uuid);
-        if (index != 1) {
+        } else {
             return storage[index];
         }
-        return null;
     }
 
     public void delete(String uuid) {
-        if (!isExist(uuid)) {
-            System.out.println("Резюме " + uuid + " для удаления не найдено");
-            return;
-        }
         int index = getIndex(uuid);
-        if (index != 1) {
+        if (!isExist(index)) {
+            System.out.println("Резюме " + uuid + " для удаления не найдено");
+        } else {
             storage[index] = storage[--size];
         }
     }
 
     public void update(Resume resume) {
-        if (!isExist(resume.getUuid())) {
-            System.out.println("Резюме " + resume.getUuid() + " для обновления не найдено");
-            return;
-        }
         int index = getIndex(resume.getUuid());
-        if (storage[index] == resume) {
+        if (!isExist(index)) {
+            System.out.println("Резюме " + resume.getUuid() + " для обновления не найдено");
+        } else {
             storage[index].setUuid(resume.getUuid());
         }
     }
@@ -65,17 +60,15 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        Resume[] resumes;
-        resumes = Arrays.copyOfRange(storage, 0, size);
-        return resumes;
+        return Arrays.copyOfRange(storage, 0, size);
     }
 
     public int size() {
         return size;
     }
 
-    private boolean isExist(String uuid) {
-        return getIndex(uuid) != -1;
+    private boolean isExist(int index) {
+        return index != -1;
     }
 
     private int getIndex(String uuid) {
