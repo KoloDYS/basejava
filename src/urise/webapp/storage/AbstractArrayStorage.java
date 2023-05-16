@@ -52,7 +52,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (!isExist(index)) {
             System.out.println("Резюме " + resume.getUuid() + " для обновления не найдено");
         } else {
-            storage[index].setUuid(resume.getUuid());
+            storage[index] = resume;
         }
     }
 
@@ -61,7 +61,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (!isExist(index)) {
             System.out.println("Резюме " + uuid + " для удаления не найдено");
         } else {
-            resetResume(index);
+            deleteResume(index);
             storage[--size] = null;
         }
     }
@@ -70,7 +70,7 @@ public abstract class AbstractArrayStorage implements Storage {
         return index != -1;
     }
 
-    protected abstract void resetResume(int index);
+    protected abstract void deleteResume(int index);
 
     protected abstract void insertResume(Resume resume, int index);
 

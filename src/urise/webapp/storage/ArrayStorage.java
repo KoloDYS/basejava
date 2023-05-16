@@ -8,7 +8,7 @@ import urise.webapp.model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected void resetResume(int index) {
+    protected void deleteResume(int index) {
         storage[index] = storage[size - 1];
     }
 
