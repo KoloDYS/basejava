@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
 
-    protected void resetResume(int index) {
+    protected void deleteResume(int index) {
         int length = size - index - 1;
         if (length > 0) {
             System.arraycopy(storage, index + 1, storage, index, length);
