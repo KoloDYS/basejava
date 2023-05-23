@@ -11,7 +11,7 @@ import urise.webapp.model.Resume;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AbstractArrayStorageTest {
-    private final Storage storage = new ArrayStorage();
+    Storage storage;
     private static final String UUID_1 = "uuid1";
     private static final Resume resume1 = new Resume(UUID_1);
     private static final String UUID_2 = "uuid2";
@@ -20,6 +20,10 @@ class AbstractArrayStorageTest {
     private static final Resume resume3 = new Resume(UUID_3);
     private static final String UUID_4 = "uuid4";
     private static final Resume resume4 = new Resume(UUID_4);
+
+    public AbstractArrayStorageTest(Storage storage) {
+        this.storage = storage;
+    }
 
     @BeforeEach
     void setUp() {
