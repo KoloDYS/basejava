@@ -69,7 +69,7 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     protected boolean isExist(int index) {
-        return index != -1;
+        return index > -1;
     }
 
     protected abstract void deleteResume(int index);
