@@ -12,7 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class AbstractArrayStorageTest {
-    Storage storage;
+    private final Storage storage;
+
+    private static final String UUID_NOT_EXIST = "dummy";
     private static final String UUID_1 = "uuid1";
     private static final Resume resume1 = new Resume(UUID_1);
     private static final String UUID_2 = "uuid2";
@@ -82,17 +84,17 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     void getNotExist() {
-        Assertions.assertThrows(NotExistStorageException.class, () -> storage.get("dummy"));
+        Assertions.assertThrows(NotExistStorageException.class, () -> storage.get(UUID_NOT_EXIST));
     }
 
     @Test
     void deleteNotExist() {
-        Assertions.assertThrows(NotExistStorageException.class, () -> storage.delete("uuid45"));
+        Assertions.assertThrows(NotExistStorageException.class, () -> storage.delete(UUID_NOT_EXIST));
     }
 
     @Test
     void updateNotExist() {
-        Assertions.assertThrows(NotExistStorageException.class, () -> storage.update(new Resume("uuid45")));
+        Assertions.assertThrows(NotExistStorageException.class, () -> storage.update(new Resume(UUID_NOT_EXIST)));
     }
 
     @Test
@@ -104,8 +106,9 @@ public abstract class AbstractArrayStorageTest {
             }
             //Double save resume
 //            storage.save(new Resume());
+            Assertions.fail("StorageException ahead of time");
         } catch (StorageException e) {
-            System.out.println("Double save resume");
+            System.out.println("StorageException ahead of time");
         }
         Assertions.assertThrows(StorageException.class, () -> storage.save(resume4));
     }
