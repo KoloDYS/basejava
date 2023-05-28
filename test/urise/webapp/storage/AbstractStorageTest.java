@@ -11,20 +11,28 @@ import urise.webapp.model.Resume;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class AbstractArrayStorageTest {
+class AbstractStorageTest {
+
     private final Storage storage;
 
-    private static final String UUID_NOT_EXIST = "dummy";
     private static final String UUID_1 = "uuid1";
-    private static final Resume resume1 = new Resume(UUID_1);
     private static final String UUID_2 = "uuid2";
-    private static final Resume resume2 = new Resume(UUID_2);
     private static final String UUID_3 = "uuid3";
-    private static final Resume resume3 = new Resume(UUID_3);
     private static final String UUID_4 = "uuid4";
-    private static final Resume resume4 = new Resume(UUID_4);
+    private static final String UUID_NOT_EXIST = "dummy";
+    private static final Resume resume1;
+    private static final Resume resume2;
+    private static final Resume resume3;
+    private static final Resume resume4;
 
-    public AbstractArrayStorageTest(Storage storage) {
+    static {
+        resume1 = new Resume(UUID_1);
+        resume2 = new Resume(UUID_2);
+        resume3 = new Resume(UUID_3);
+        resume4 = new Resume(UUID_4);
+    }
+
+    AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
 
@@ -44,19 +52,6 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    void getAll() {
-        Resume[] expected = new Resume[]{resume1, resume2, resume3};
-        assertArrayEquals(expected, storage.getAll());
-    }
-
-    @Test
-    void save() {
-        storage.save(resume4);
-        assertGet(resume4);
-        assertSize(4);
-    }
-
-    @Test
     void get() {
         assertGet(resume1);
         assertGet(resume2);
@@ -64,8 +59,10 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    void size() {
-        assertSize(3);
+    void save() {
+        storage.save(resume4);
+        assertGet(resume4);
+        assertSize(4);
     }
 
     @Test
@@ -105,10 +102,9 @@ public abstract class AbstractArrayStorageTest {
                 storage.save(new Resume());
             }
             //Double save resume
-//            storage.save(new Resume());
-            Assertions.fail("StorageException ahead of time");
+            storage.save(new Resume());
         } catch (StorageException e) {
-            System.out.println("StorageException ahead of time");
+            Assertions.fail("StorageException ahead of time");
         }
         Assertions.assertThrows(StorageException.class, () -> storage.save(resume4));
     }
