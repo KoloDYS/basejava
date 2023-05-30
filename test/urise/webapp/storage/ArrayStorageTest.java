@@ -1,6 +1,6 @@
 package urise.webapp.storage;
 
-class ArrayStorageTest extends AbstractStorageTest {
+class ArrayStorageTest extends AbstractArrayStorageTest {
 
     public ArrayStorageTest() {
         super(new ArrayStorage());

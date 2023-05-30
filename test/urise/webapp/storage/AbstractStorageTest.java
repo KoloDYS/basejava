@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import urise.webapp.exception.ExistStorageException;
 import urise.webapp.exception.NotExistStorageException;
-import urise.webapp.exception.StorageException;
 import urise.webapp.model.Resume;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -13,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AbstractStorageTest {
 
-    private final Storage storage;
+    protected final Storage storage;
 
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
@@ -23,7 +22,7 @@ class AbstractStorageTest {
     private static final Resume resume1;
     private static final Resume resume2;
     private static final Resume resume3;
-    private static final Resume resume4;
+    protected static final Resume resume4;
 
     static {
         resume1 = new Resume(UUID_1);
@@ -92,21 +91,6 @@ class AbstractStorageTest {
     @Test
     void updateNotExist() {
         Assertions.assertThrows(NotExistStorageException.class, () -> storage.update(new Resume(UUID_NOT_EXIST)));
-    }
-
-    @Test
-    void saveOverflow() {
-        storage.clear();
-        try {
-            for (int i = 0; i < AbstractArrayStorage.CAPACITY; i++) {
-                storage.save(new Resume());
-            }
-            //Double save resume
-            storage.save(new Resume());
-        } catch (StorageException e) {
-            Assertions.fail("StorageException ahead of time");
-        }
-        Assertions.assertThrows(StorageException.class, () -> storage.save(resume4));
     }
 
     @Test

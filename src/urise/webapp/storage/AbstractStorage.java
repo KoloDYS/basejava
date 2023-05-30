@@ -5,21 +5,21 @@ import urise.webapp.exception.NotExistStorageException;
 import urise.webapp.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
-    protected abstract Resume getResume(int index);
+    protected abstract Resume getResume(Object searchKey);
 
-    protected abstract void removeResume(int index);
+    protected abstract void removeResume(Object searchKey);
 
-    protected abstract void updateResume(Resume resume, int index);
+    protected abstract void updateResume(Resume resume, Object searchKey);
 
-    protected abstract void saveResume(Resume resume, Object index);
+    protected abstract void saveResume(Resume resume, Object searchKey);
 
     protected abstract boolean isExist(Object searchKey);
 
-    protected abstract Integer getIndex(String uuid);
+    protected abstract Object getSearchKey(String uuid);
 
     public Resume get(String uuid) {
         Object index = getExistedResume(uuid);
-        return getResume(((int) index));
+        return getResume((index));
     }
 
     public void save(Resume r) {
@@ -29,16 +29,16 @@ public abstract class AbstractStorage implements Storage {
 
     public void update(Resume r) {
         Object index = getExistedResume(r.getUuid());
-        updateResume(r, (int) index);
+        updateResume(r, index);
     }
 
     public void delete(String uuid) {
         Object index = getExistedResume(uuid);
-        removeResume((int) index);
+        removeResume(index);
     }
 
     private Object getExistedResume(String uuid) {
-        Object searchKey = getIndex(uuid);
+        Object searchKey = getSearchKey(uuid);
         if (!isExist(searchKey)) {
             throw new NotExistStorageException(uuid);
         }
@@ -46,7 +46,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     private Object getNotExistedResume(String uuid) {
-        Object searchKey = getIndex(uuid);
+        Object searchKey = getSearchKey(uuid);
         if (isExist(searchKey)) {
             throw new ExistStorageException(uuid);
         }

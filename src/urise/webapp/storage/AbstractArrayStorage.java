@@ -31,20 +31,20 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         }
     }
 
-    public final Resume getResume(int index) {
-        return storage[index];
+    public final Resume getResume(Object searchKey) {
+        return storage[(int) searchKey];
     }
 
     public final int size() {
         return size;
     }
 
-    public final void updateResume(Resume resume, int index) {
-        storage[index] = resume;
+    public final void updateResume(Resume resume, Object searchKey) {
+        storage[(int) searchKey] = resume;
     }
 
-    public final void removeResume(int index) {
-        deleteResume(index);
+    public final void removeResume(Object searchKey) {
+        deleteResume((int) searchKey);
         storage[--size] = null;
     }
 
@@ -56,5 +56,5 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     protected abstract void insertResume(Resume resume, int index);
 
-    protected abstract Integer getIndex(String uuid);
+    protected abstract Object getSearchKey(String uuid);
 }
