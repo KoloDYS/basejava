@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class MapStorage extends AbstractStorage {
 
-    private final Map<String, Resume> storage = new HashMap<String, Resume>();
+    private final Map<String, Resume> storage = new HashMap<>();
 
     @Override
     protected Resume getResume(Object searchKey) {
