@@ -15,7 +15,7 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract boolean isExist(Object searchKey);
 
-    protected abstract Object getSearchKey(String uuid);
+    protected abstract Object getSearchKey(String searchKey);
 
     public Resume get(String uuid) {
         Object index = getExistedResume(uuid);

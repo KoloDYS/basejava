@@ -25,10 +25,10 @@ class AbstractStorageTest {
     protected static final Resume resume4;
 
     static {
-        resume1 = new Resume(UUID_1);
-        resume2 = new Resume(UUID_2);
-        resume3 = new Resume(UUID_3);
-        resume4 = new Resume(UUID_4);
+        resume1 = new Resume(UUID_1, "one");
+        resume2 = new Resume(UUID_2, "two");
+        resume3 = new Resume(UUID_3, "three");
+        resume4 = new Resume(UUID_4, "four");
     }
 
     AbstractStorageTest(Storage storage) {
@@ -47,7 +47,7 @@ class AbstractStorageTest {
     void clear() {
         storage.clear();
         assertSize(0);
-        assertArrayEquals(new Resume[0], storage.getAll());
+        assertArrayEquals(new Resume[0], storage.getAllSorted().toArray());
     }
 
     @Test
@@ -66,7 +66,7 @@ class AbstractStorageTest {
 
     @Test
     void update() {
-        Resume updatingResume = new Resume(UUID_1);
+        Resume updatingResume = new Resume(UUID_1, "one");
         storage.update(updatingResume);
         assertEquals(updatingResume, storage.get(UUID_1));
     }
