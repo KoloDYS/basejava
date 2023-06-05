@@ -2,10 +2,7 @@ package urise.webapp.storage;
 
 import urise.webapp.model.Resume;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MapUUIDStorage extends AbstractStorage {
 

@@ -7,6 +7,9 @@ import urise.webapp.exception.ExistStorageException;
 import urise.webapp.exception.NotExistStorageException;
 import urise.webapp.model.Resume;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -55,6 +58,13 @@ class AbstractStorageTest {
         assertGet(resume1);
         assertGet(resume2);
         assertGet(resume3);
+    }
+
+    @Test
+    void getAllSorted() {
+        List<Resume> list = storage.getAllSorted();
+        assertSize(3);
+        assertEquals(Arrays.asList(resume1, resume3, resume2), list);
     }
 
     @Test
