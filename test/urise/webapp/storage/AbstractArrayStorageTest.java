@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import urise.webapp.exception.StorageException;
 import urise.webapp.model.Resume;
 
-class AbstractArrayStorageTest extends AbstractStorageTest {
+abstract class AbstractArrayStorageTest extends AbstractStorageTest {
 
     public AbstractArrayStorageTest(Storage storage) {
         super(storage);
@@ -18,8 +18,6 @@ class AbstractArrayStorageTest extends AbstractStorageTest {
             for (int i = 0; i < AbstractArrayStorage.CAPACITY; i++) {
                 storage.save(new Resume("" + i));
             }
-            //Double save resume
-            storage.save(new Resume("overflow"));
         } catch (StorageException e) {
             Assertions.fail("StorageException ahead of time");
         }

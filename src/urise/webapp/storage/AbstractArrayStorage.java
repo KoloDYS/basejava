@@ -4,7 +4,6 @@ import urise.webapp.exception.StorageException;
 import urise.webapp.model.Resume;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
@@ -20,10 +19,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    public final List<Resume> getAllSorted() {
-        List<Resume> sortedList = Arrays.asList(Arrays.copyOfRange(storage, 0, size));
-        Collections.sort(sortedList);
-        return sortedList;
+
+    protected List<Resume> doCopyAll() {
+        return Arrays.asList(Arrays.copyOfRange(storage, 0, size));
     }
 
     public final void saveResume(Resume r, Object index) {

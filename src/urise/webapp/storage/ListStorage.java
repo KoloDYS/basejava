@@ -3,12 +3,11 @@ package urise.webapp.storage;
 import urise.webapp.model.Resume;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
 
-    private final List<Resume> list = new ArrayList<Resume>();
+    private final List<Resume> list = new ArrayList<>();
 
     @Override
     protected Resume getResume(Object searchKey) {
@@ -46,15 +45,13 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public void clear() {
-        list.clear();
+    protected List<Resume> doCopyAll() {
+        return list;
     }
 
     @Override
-    public List<Resume> getAllSorted() {
-        List <Resume> sortedList = new ArrayList<>(list);
-        Collections.sort(sortedList);
-        return sortedList;
+    public void clear() {
+        list.clear();
     }
 
     @Override

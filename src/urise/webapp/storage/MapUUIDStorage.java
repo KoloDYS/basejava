@@ -39,15 +39,13 @@ public class MapUUIDStorage extends AbstractStorage {
     }
 
     @Override
-    public void clear() {
-        storage.clear();
+    protected List<Resume> doCopyAll() {
+        return new ArrayList<>(storage.values());
     }
 
     @Override
-    public List<Resume> getAllSorted() {
-        return storage.values().stream().
-                sorted((Comparator.comparing(Resume::getFullName).thenComparing(Resume::compareTo))).
-                toList();
+    public void clear() {
+        storage.clear();
     }
 
     @Override

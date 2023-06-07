@@ -2,54 +2,49 @@ package urise.webapp.storage;
 
 import urise.webapp.model.Resume;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MapNameStorage extends AbstractStorage {
     private final Map<String, Resume> storage = new HashMap<>();
 
     @Override
     protected Resume getResume(Object searchKey) {
-        return storage.get((String) searchKey);
+        return storage.get(((Resume) searchKey).getUuid());
     }
 
     @Override
     protected void removeResume(Object searchKey) {
-        storage.remove((String) searchKey);
+        storage.remove(((Resume) searchKey).getUuid());
     }
 
     @Override
     protected void updateResume(Resume resume, Object searchKey) {
-        storage.put((String) searchKey, resume);
+        storage.put(resume.getUuid(), resume);
     }
 
     @Override
     protected void saveResume(Resume resume, Object searchKey) {
-        storage.put((String) searchKey, resume);
+        storage.put(resume.getUuid(), resume);
     }
 
     @Override
     protected boolean isExist(Object searchKey) {
-        return storage.containsKey((String) searchKey);
+        return searchKey != null;
     }
 
     @Override
     protected Object getSearchKey(String searchKey) {
-        return searchKey;
+        return storage.get(searchKey);
+    }
+
+    @Override
+    protected List<Resume> doCopyAll() {
+        return new ArrayList<>(storage.values());
     }
 
     @Override
     public void clear() {
         storage.clear();
-    }
-
-    @Override
-    public List<Resume> getAllSorted() {
-        return storage.values().stream().
-                sorted((Comparator.comparing(Resume::getFullName).thenComparing(Resume::compareTo))).
-                toList();
     }
 
     @Override

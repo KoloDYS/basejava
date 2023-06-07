@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class AbstractStorageTest {
+abstract class AbstractStorageTest {
 
     protected final Storage storage;
 
