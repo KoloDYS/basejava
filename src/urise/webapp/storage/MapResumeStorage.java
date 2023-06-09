@@ -4,12 +4,12 @@ import urise.webapp.model.Resume;
 
 import java.util.*;
 
-public class MapNameStorage extends AbstractStorage {
+public class MapResumeStorage extends AbstractStorage {
     private final Map<String, Resume> storage = new HashMap<>();
 
     @Override
     protected Resume getResume(Object searchKey) {
-        return storage.get(((Resume) searchKey).getUuid());
+        return (Resume) searchKey;
     }
 
     @Override
