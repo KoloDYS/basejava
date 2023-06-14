@@ -5,37 +5,37 @@ import urise.webapp.model.Resume;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListStorage extends AbstractStorage {
+public class ListStorage extends AbstractStorage<Integer> {
 
     private final List<Resume> list = new ArrayList<>();
 
     @Override
-    protected Resume getResume(Object searchKey) {
-        return list.get((int) searchKey);
+    protected Resume getResume(Integer searchKey) {
+        return list.get(searchKey);
     }
 
     @Override
-    protected void removeResume(Object searchKey) {
-        list.remove((int) searchKey);
+    protected void removeResume(Integer searchKey) {
+        list.remove(searchKey.intValue());
     }
 
     @Override
-    protected void updateResume(Resume resume, Object searchKey) {
-        list.set((int) searchKey, resume);
+    protected void updateResume(Resume resume, Integer searchKey) {
+        list.set(searchKey, resume);
     }
 
     @Override
-    protected void saveResume(Resume resume, Object index) {
+    protected void saveResume(Resume resume, Integer index) {
         list.add(resume);
     }
 
     @Override
-    protected boolean isExist(Object index) {
+    protected boolean isExist(Integer index) {
         return index != null;
     }
 
     @Override
-    protected Object getSearchKey(String uuid) {
+    protected Integer getSearchKey(String uuid) {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getUuid().equals(uuid)) {
                 return i;

@@ -6,7 +6,7 @@ import urise.webapp.model.Resume;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected static final int CAPACITY = 10000;
     protected int size;
     protected final Resume[] storage = new Resume[CAPACITY];
@@ -24,39 +24,39 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return Arrays.asList(Arrays.copyOfRange(storage, 0, size));
     }
 
-    public final void saveResume(Resume r, Object index) {
+    public final void saveResume(Resume r, Integer index) {
         if (size == CAPACITY) {
             throw new StorageException("Storage overflow", r.getUuid());
         } else {
-            insertResume(r, (int) index);
+            insertResume(r, index);
             size++;
         }
     }
 
-    public final Resume getResume(Object searchKey) {
-        return storage[(int) searchKey];
+    public final Resume getResume(Integer searchKey) {
+        return storage[searchKey];
     }
 
     public final int size() {
         return size;
     }
 
-    public final void updateResume(Resume resume, Object searchKey) {
-        storage[(int) searchKey] = resume;
+    public final void updateResume(Resume resume, Integer searchKey) {
+        storage[searchKey] = resume;
     }
 
-    public final void removeResume(Object searchKey) {
-        deleteResume((int) searchKey);
+    public final void removeResume(Integer searchKey) {
+        deleteResume(searchKey);
         storage[--size] = null;
     }
 
-    protected boolean isExist(Object index) {
-        return (int) index > -1;
+    protected boolean isExist(Integer index) {
+        return index > -1;
     }
 
     protected abstract void deleteResume(int index);
 
     protected abstract void insertResume(Resume resume, int index);
 
-    protected abstract Object getSearchKey(String searchKey);
+    protected abstract Integer getSearchKey(String searchKey);
 }
