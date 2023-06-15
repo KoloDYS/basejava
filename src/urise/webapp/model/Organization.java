@@ -5,12 +5,12 @@ import java.util.Objects;
 
 public class Organization {
     private final List<Period> periods;
-    private final URL url;
+    private final Link link;
     private final String name;
 
-    public Organization(List<Period> periods, URL url, String name) {
+    public Organization(List<Period> periods, Link link, String name) {
         this.periods = periods;
-        this.url = url;
+        this.link = link;
         this.name = name;
     }
 
@@ -18,7 +18,7 @@ public class Organization {
     public String toString() {
         return "Organization{" +
                 "periods=" + periods +
-                ", url=" + url +
+                ", url=" + link +
                 ", name='" + name + '\'' +
                 '}';
     }
@@ -29,11 +29,11 @@ public class Organization {
         if (o == null || getClass() != o.getClass()) return false;
         Organization that = (Organization) o;
         return Objects.equals(periods, that.periods) &&
-                Objects.equals(url, that.url) && Objects.equals(name, that.name);
+                Objects.equals(link, that.link) && Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(periods, url, name);
+        return Objects.hash(periods, link, name);
     }
 }

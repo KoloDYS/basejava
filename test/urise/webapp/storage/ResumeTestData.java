@@ -76,20 +76,20 @@ public class ResumeTestData {
         Period javaops = new Period("Java Online Projects",
                 "Создание, организация и проведение Java онлайн проектов и стажировок.",
                 LocalDate.of(2013, 10, 1), LocalDate.now());
-        URL url = new URL("JavaOps", "https://javaops.ru/");
+        Link link = new Link("JavaOps", "https://javaops.ru/");
         List<Period> periods = new ArrayList<>();
         periods.add(javaops);
-        Organization jops = new Organization(periods, url, "JavaOPS");
+        Organization jops = new Organization(periods, link, "JavaOPS");
         List<Organization> organizations = new ArrayList<>();
         organizations.add(jops);
         resume.addSection(SectionType.EXPERIENCE,new OrganizationSection(organizations));
         Period coursera = new Period("Coursera", "\n" +
                 "'Functional Programming Principles in Scala' by Martin Odersky",
                 LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5, 1));
-        URL urlCoursera = new URL("Coursera", "https://www.coursera.org/course/progfun");
+        Link linkCoursera = new Link("Coursera", "https://www.coursera.org/course/progfun");
         List<Period> periodED = new ArrayList<>();
         periodED.add(coursera);
-        Organization ed = new Organization(periodED, urlCoursera, "Coursera");
+        Organization ed = new Organization(periodED, linkCoursera, "Coursera");
         List<Organization> educations = new ArrayList<>();
         educations.add(ed);
         resume.addSection(SectionType.EDUCATION, new OrganizationSection(educations));

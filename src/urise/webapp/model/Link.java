@@ -2,11 +2,11 @@ package urise.webapp.model;
 
 import java.util.Objects;
 
-public class URL {
+public class Link {
     private final String name;
     private final String url;
 
-    public URL(String name, String url) {
+    public Link(String name, String url) {
         this.name = name;
         this.url = url;
     }
@@ -31,8 +31,8 @@ public class URL {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        URL url1 = (URL) o;
-        return name.equals(url1.name) && url.equals(url1.url);
+        Link link1 = (Link) o;
+        return name.equals(link1.name) && url.equals(link1.url);
     }
 
     @Override
