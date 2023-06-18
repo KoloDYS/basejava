@@ -8,7 +8,12 @@ import java.util.List;
 
 public class ResumeTestData {
     public static void main(String[] args) {
-        Resume resume = new Resume("uuid1", "Name Surname");
+        Resume resume = createResume("uuid1", "Name Surname");
+        resume.printAllResume();
+    }
+
+    public static Resume createResume(String uuid, String fullName) {
+        Resume resume = new Resume(uuid, fullName);
         resume.addContact(ContactType.NUMBER, "+7(921) 855-0482 ");
         resume.addContact(ContactType.SKYPE, "skype:grigory.kislin");
         resume.addContact(ContactType.EMAIL, "gkislin@yandex.ru");
@@ -93,6 +98,6 @@ public class ResumeTestData {
         List<Organization> educations = new ArrayList<>();
         educations.add(ed);
         resume.addSection(SectionType.EDUCATION, new OrganizationSection(educations));
-        resume.printAllResume();
+        return resume;
     }
 }

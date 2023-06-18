@@ -24,6 +24,14 @@ public class Period {
         return endDate;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
         return "Period{" +

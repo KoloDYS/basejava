@@ -12,6 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static urise.webapp.storage.ResumeTestData.createResume;
 
 abstract class AbstractStorageTest {
 
@@ -28,10 +29,14 @@ abstract class AbstractStorageTest {
     protected static final Resume resume4;
 
     static {
-        resume1 = new Resume(UUID_1, "one");
+/*        resume1 = new Resume(UUID_1, "one");
         resume2 = new Resume(UUID_2, "two");
         resume3 = new Resume(UUID_3, "three");
-        resume4 = new Resume(UUID_4, "four");
+        resume4 = new Resume(UUID_4, "four");*/
+        resume1 = createResume(UUID_1, "one");
+        resume2 = createResume(UUID_2, "two");
+        resume3 = createResume(UUID_3, "three");
+        resume4 = createResume(UUID_4, "four");
     }
 
     AbstractStorageTest(Storage storage) {
