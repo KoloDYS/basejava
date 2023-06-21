@@ -1,7 +1,11 @@
 package urise.webapp.model;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Objects;
+
+import static urise.webapp.util.DateUtil.NOW;
+import static urise.webapp.util.DateUtil.of;
 
 public class Period {
     private final String title;
@@ -14,6 +18,20 @@ public class Period {
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public Period(String title, String description, int startYear, Month startMonth, int endYear, Month endMonth) {
+        this.title = title;
+        this.description = description;
+        this.startDate = of(startYear, startMonth);
+        this.endDate = of(endYear, endMonth);
+    }
+
+    public Period(String title, String description, int startYear, Month startMonth) {
+        this.title = title;
+        this.description = description;
+        this.startDate = of(startYear, startMonth);
+        this.endDate = NOW;
     }
 
     public LocalDate getStartDate() {
