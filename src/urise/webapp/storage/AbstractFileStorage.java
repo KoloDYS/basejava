@@ -32,11 +32,9 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         }
     }
 
-    protected abstract Resume doRead(File file) throws IOException;
-
     @Override
     protected void removeResume(File file) {
-        file.delete();
+        doDelete(file);
     }
 
     @Override
@@ -58,8 +56,6 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         }
     }
 
-    protected abstract void doWrite(Resume resume, File file) throws IOException;
-
     @Override
     protected boolean isExist(File file) {
         return file.exists();
@@ -74,7 +70,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     protected List<Resume> doCopyAll() {
         File[] files = directory.listFiles();
         if (files == null) {
-            throw new StorageException("Resumes are not exist", null);
+            throw new StorageException("Directory read error", null);
         }
         List<Resume> resumes = new ArrayList<>(files.length);
         for (File file : files) {
@@ -86,10 +82,11 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     public void clear() {
         File[] resumes = directory.listFiles();
-        if (resumes != null) {
-            for (File resume : resumes) {
-                resume.delete();
-            }
+        if (resumes == null) {
+            throw new StorageException("Resumes read error", null);
+        }
+        for (File resume : resumes) {
+            doDelete(resume);
         }
     }
 
@@ -101,4 +98,14 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         }
         return list.length;
     }
+
+    protected void doDelete(File resume) {
+        if (!resume.delete()) {
+            throw new StorageException("Resume delete error: ", resume.getName());
+        }
+    }
+
+    protected abstract Resume doRead(File file) throws IOException;
+
+    protected abstract void doWrite(Resume resume, File file) throws IOException;
 }
